@@ -1,0 +1,10 @@
+FreeRTOS is originally maintained by Real Time Engineers Ltd. on the web site
+http://www.freertos.org . It is distributed under a modified GPL available in
+the file COPYING.
+
+In some libraries, it may reside other authors of those parts. Please look
+inside the code to find out, you can also type this command to find them easily:
+ # grep -r "<[-_.0-9a-zA-Z]*@[-_.0-9a-zA-Z]\+\.[a-z]\+>" *
+
+
+Further authors are added under this line :
