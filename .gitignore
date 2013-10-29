@@ -1,0 +1,13 @@
+/.bundle
+/.vagrant
+/vendor/bundle
+/cookbooks
+/tmp
+/*.box
+/README.html
+/_obsolete
+.tmp/
+*~
+/graphs/*.dot
+/graphs/*.png
+*.tmp.sql
