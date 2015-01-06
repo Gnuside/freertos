@@ -12,27 +12,37 @@
 # Requires: nothing
 #
 
-class {
-  "cross_comp":;
-  "binutils":;
-  "gcc":;
-  "linux_kernel":;
-  "eglibc":
-}
+node "vagrant-debian-wheezy.vagrantup.com" {
 
-if $osfamily == "Debian" {
-  class{ "apt":  always_apt_update => true; }
-  
-  apt::key {
-    "B98321F9":
-      key_source => "http://ftp-master.debian.org/keys/archive-key-6.0.asc";
-    "473041FA":
-      key_source => "http://ftp-master.debian.org/keys/archive-key-6.0.asc";
-    "F42584E6":
-      key_source => "http://ftp-master.debian.org/keys/archive-key-6.0.asc"
+  $config_gcc         = loadyaml('/vagrant/config/gcc.yml')
+  $config_binutils    = loadyaml('/vagrant/config/binutils.yml')
+  $config_crosscomp   = loadyaml('/vagrant/config/crosscomp.yml')
+  $config_eglibc      = loadyaml('/vagrant/config/eglibc.yml')
+
+  class {
+    "cross_comp":
+      config => $config_crosscomp;
+    "binutils":
+      config => $config_binutils;
+    "gcc":
+      config => $config_gcc;
+    "eglibc":
+      config => $config_eglibc
   }
-  
-  Apt::Key <| |> -> Exec["apt_update"]
-  Exec["apt_update"] -> Package <| |>
-}
 
+  if $osfamily == "Debian" {
+    class{ "apt":  always_apt_update => true; }
+
+    apt::key {
+      "B98321F9":
+        key_source => "http://ftp-master.debian.org/keys/archive-key-6.0.asc";
+      "473041FA":
+        key_source => "http://ftp-master.debian.org/keys/archive-key-6.0.asc";
+      "F42584E6":
+        key_source => "http://ftp-master.debian.org/keys/archive-key-6.0.asc"
+    }
+
+    Apt::Key <| |> -> Exec["apt_update"]
+    Exec["apt_update"] -> Package <| |>
+  }
+}

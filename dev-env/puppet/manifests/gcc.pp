@@ -1,14 +1,14 @@
 # GCC
 
-class gcc {
+class gcc($config) {
   require cross_comp::tree
-  include gcc::params,
+  include gcc::params($config),
     gcc::download,
     gcc::build,
     gcc::build3
 }
 
-class gcc::params {
+class gcc::params($config) {
   include cross_comp::params
 
   $version        = '4.7.2'
